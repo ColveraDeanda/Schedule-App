@@ -1,0 +1,273 @@
+<!-- <button (click)="swithTheme()">
+    {{ theme === 'light' ? "swith to dark" : "swith to light" }}
+</button> -->
+
+<div class="calendar">
+    <div class="calendar-header">
+        <span class="month-picker" id="month-picker">October</span>
+        <div class="year-picker">
+            <span class="year-change" id="prev-year">
+                <i class="fas fa-angle-left prev"></i>
+            </span>
+            <span id="year">2021</span>
+            <span class="year-change" id="next-year">
+                <i class="fas fa-angle-right next"></i>
+            </span>
+        </div>
+    </div>
+    <div class="calendar-body">
+        <div class="calendar-week-day">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+        </div>
+        <div class="calendar-days">
+            <div class="calendar-day-hover">
+                1
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                2
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                3
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                4
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                5
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                6
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                7
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                8
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                9
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                10
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                11
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                12
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                13
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                14
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                15
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                16
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                17
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                18
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                19
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                20
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                21
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                22
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                23
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                24
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                25
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                26
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                27
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                28
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                29
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                30
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="calendar-day-hover">
+                31
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="calendar-footer">
+        <div class="toggle">
+            <span style="font-size: 20px">{{ themeTittle }} Mode</span>
+            <div class="dark-mode-switch" (click)="swithTheme()">
+                <div class="dark-mode-switch-ident"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="month-list">
+        <!-- show -->
+        <div data-month="0">January</div>
+        <div data-month="1">February</div>
+        <div data-month="2">January</div>
+        <div data-month="3">January</div>
+        <div data-month="4">January</div>
+        <div data-month="5">January</div>
+        <div data-month="7">January</div>
+        <div data-month="8">January</div>
+        <div data-month="9">January</div>
+        <div data-month="10">January</div>
+        <div data-month="11">January</div>
+        <div data-month="12">December</div>
+    </div>
+</div>
