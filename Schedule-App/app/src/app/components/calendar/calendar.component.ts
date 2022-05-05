@@ -8,6 +8,7 @@ import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
 })
 export class CalendarComponent implements OnInit {
 
+  property: string = ''
   theme: Theme = 'light';
   themeTittle: string = 'Dark';
 
