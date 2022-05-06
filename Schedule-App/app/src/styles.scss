@@ -275,6 +275,11 @@ body {
     grid-template-columns: repeat(3, auto);
     gap: 5px;
     display: grid;
+    color: var(--color-txt);
+    font-weight: bold;
+    font-size: 30px;
+    letter-spacing: 3px;
+    cursor: pointer;
     transform: scale(1.5);
     visibility: hidden;
     pointer-events: none;
@@ -290,6 +295,12 @@ body {
 .month-list > div {
     display: grid;
     place-items: center;
+}
+
+.month-list > div:hover {
+    display: grid;
+    place-items: center;
+    background-color: var(--bg-body);
 }
 
 .month-list > div > div {

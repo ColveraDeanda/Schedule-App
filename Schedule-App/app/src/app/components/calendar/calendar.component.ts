@@ -13,10 +13,17 @@ export class CalendarComponent implements OnInit {
   themeTittle: string = 'Dark';
   display: boolean = false;
 
+  // Dates
+  day: number;
+  month: string = 'August';
+  year: number = 2022;
+
   constructor(
     @Inject(DOCUMENT) private documet: Document,
     private renderer: Renderer2
-  ) { }
+  ) {
+    this.day = 0;
+  }
 
   ngOnInit(): void {
     this.initializeTheme()
@@ -30,8 +37,17 @@ export class CalendarComponent implements OnInit {
     this.theme === 'light' ? this.themeTittle = 'Dark' : this.themeTittle = 'Light';
   }
 
-  showDialog() {
+  showDialog(day: number) {
     this.display = true;
+    this.day = day;
+  }
+
+  lessYears() {
+    this.year = this.year - 1;
+  }
+
+  moreYears() {
+    this.year = this.year + 1;
   }
 
 

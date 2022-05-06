@@ -10,12 +10,14 @@ import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
 
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { MonthComponent } from './components/month/month.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CalendarComponent
+    CalendarComponent,
+    MonthComponent
   ],
   imports: [
     BrowserModule,

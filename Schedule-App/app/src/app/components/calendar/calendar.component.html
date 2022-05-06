@@ -7,12 +7,10 @@
 
 -->
 
-<button type="button" (click)="showDialog()" icon="pi pi-info-circle" label="Show">Show</button>
-
-<p-dialog position="top" [(visible)]="display" [transitionOptions]="'250ms'" [breakpoints]="{'1400px': '40vw', '960px': '50vw', '720px': '70vw', '480px': '100vw', '370px': '100vw' }" [style]="{width: '30vw'}">
+<p-dialog position="top" [(visible)]="display" [transitionOptions]="'350ms'" [breakpoints]="{'1400px': '50vw', '970px': '50vw', '1050px': '60vw',  '870px': '70vw', '750px': '80vw', '660px': '100vw', '520px': '100vw',  '480px': '100vw', '370px': '100vw' }" [style]="{width: '40vw'}">
     <ng-template pTemplate="header">
-        Header content here
-        <button pButton type="button" [ngClass]="{'light': theme == 'light', 'dark': theme == 'dark'}" label="Click" ></button>
+        {{ month + ' ' + day + ', ' + year }}
+        <button pButton type="button" style="margin-left: 40%;" [ngClass]="{'light': theme == 'light', 'dark': theme == 'dark'}" label="Create new" ></button>
     </ng-template>
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa illo placeat neque itaque rerum dolore similique quo laborum, laudantium velit praesentium? Magnam architecto dicta officia dolores esse in eos ea!  
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa illo placeat neque itaque rerum dolore similique quo laborum, laudantium velit praesentium? Magnam architecto dicta officia dolores esse in eos ea!  
@@ -24,13 +22,13 @@
 
 <div class="calendar">
     <div class="calendar-header">
-        <span class="month-picker" id="month-picker">October</span>
+        <span class="month-picker" id="month-picker">{{month}}</span>
         <div class="year-picker">
-            <span class="year-change" id="prev-year">
+            <span (click)="lessYears()" class="year-change" id="prev-year">
                 <i class="fas fa-angle-left prev"></i>
             </span>
-            <span id="year">2021</span>
-            <span class="year-change" id="next-year">
+            <span id="year">{{ year }}</span>
+            <span (click)="moreYears()" class="year-change" id="next-year">
                 <i class="fas fa-angle-right next"></i>
             </span>
         </div>
@@ -46,70 +44,70 @@
             <div>Sat</div>
         </div>
         <div class="calendar-days">
-            <div class="calendar-day-hover">
+            <div (click)="showDialog(1)" class="calendar-day-hover ">
                 1
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <div class="calendar-day-hover">
+            <div (click)="showDialog(2)" class="calendar-day-hover">
                 2
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <div class="calendar-day-hover">
+            <div (click)="showDialog(3)" class="calendar-day-hover">
                 3
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <div class="calendar-day-hover">
+            <div (click)="showDialog(4)" class="calendar-day-hover">
                 4
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <div class="calendar-day-hover">
+            <div (click)="showDialog(5)" class="calendar-day-hover">
                 5
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <div class="calendar-day-hover">
+            <div (click)="showDialog(6)" class="calendar-day-hover">
                 6
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <div class="calendar-day-hover">
+            <div (click)="showDialog(7)" class="calendar-day-hover">
                 7
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <div class="calendar-day-hover">
+            <div (click)="showDialog(8)" class="calendar-day-hover">
                 8
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <div class="calendar-day-hover">
+            <div (click)="showDialog(9)" class="calendar-day-hover">
                 9
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <div class="calendar-day-hover">
+            <div (click)="showDialog(10)" class="calendar-day-hover">
                 10
                 <span></span>
                 <span></span>
@@ -242,21 +240,21 @@
                 <span></span>
                 <span></span>
             </div>
-            <div class="calendar-day-hover">
+            <div *ngIf="month != 'February'" class="calendar-day-hover">
                 29
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <div class="calendar-day-hover">
+            <div *ngIf="month != 'February'" class="calendar-day-hover">
                 30
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <div class="calendar-day-hover">
+            <div *ngIf="month == 'January' || month == 'March' || month == 'May' || month == 'July' || month == 'August' || month == 'October' || month == 'December'" class="calendar-day-hover">
                 31
                 <span></span>
                 <span></span>
@@ -279,15 +277,15 @@
         <!-- show -->
         <div data-month="0">January</div>
         <div data-month="1">February</div>
-        <div data-month="2">January</div>
-        <div data-month="3">January</div>
-        <div data-month="4">January</div>
-        <div data-month="5">January</div>
-        <div data-month="7">January</div>
-        <div data-month="8">January</div>
-        <div data-month="9">January</div>
-        <div data-month="10">January</div>
-        <div data-month="11">January</div>
+        <div data-month="2">March</div>
+        <div data-month="3">April</div>
+        <div data-month="4">May</div>
+        <div data-month="5">June</div>
+        <div data-month="7">July</div>
+        <div data-month="8">August</div>
+        <div data-month="9">September</div>
+        <div data-month="10">October</div>
+        <div data-month="11">November</div>
         <div data-month="12">December</div>
     </div>
 </div>
