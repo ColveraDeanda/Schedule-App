@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router'
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-calendar',
@@ -9,6 +10,7 @@ import { Router } from '@angular/router'
 })
 export class CalendarComponent implements OnInit {
 
+  date = new Date();
   property: string = ''
   theme: Theme;
   themeTittle: string;
@@ -20,6 +22,7 @@ export class CalendarComponent implements OnInit {
   year: number;
 
   constructor(
+    private dataService: DataService, 
     private router: Router,
 
     @Inject(DOCUMENT) private documet: Document,
@@ -29,8 +32,8 @@ export class CalendarComponent implements OnInit {
     this.themeTittle = 'Dark'
 
     this.day = 0;
-    this.month = 'February';
-    this.year = 2022
+    this.month = dataService.month;
+    this.year = dataService.year;
   }
 
   ngOnInit(): void {
@@ -61,10 +64,12 @@ export class CalendarComponent implements OnInit {
 
   lessYears() {
     this.year = this.year - 1;
+    this.dataService.year = this.year;
   }
 
   moreYears() {
     this.year = this.year + 1;
+    this.dataService.year = this.year;
   }
 
   isleapyear() {

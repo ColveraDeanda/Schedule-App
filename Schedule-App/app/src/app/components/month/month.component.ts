@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-month',
@@ -8,12 +9,16 @@ import { Router } from '@angular/router';
 })
 export class MonthComponent implements OnInit {
 
-  constructor( private router: Router) { }
+  constructor( private router: Router, 
+    private dataService: DataService) { 
+      
+  }
 
   ngOnInit(): void {
   }
 
-  toCalendar() {
+  toCalendar(month: string) {
+    this.dataService.month = month;
     this.router.navigate(['/calendar']);
   }
 

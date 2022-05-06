@@ -11,6 +11,7 @@ import {DialogModule} from 'primeng/dialog';
 
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { MonthComponent } from './components/month/month.component';
+import { DataService } from './services/data.service';
 
 
 @NgModule({
@@ -28,7 +29,7 @@ import { MonthComponent } from './components/month/month.component';
     DialogModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
