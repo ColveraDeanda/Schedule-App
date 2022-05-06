@@ -1,1 +1,23 @@
+:root {
+    --dark-body: #4d4c5a;
+    --light-body: #f3f8fe;
+}
+
+.dark {
+    background-color: var(--dark-body);
+    border: 1px solid var(--light-body)  ;
+}
+
+.dark:hover {
+    background-color: var(--light-body);
+    border: 1px solid var(--dark-body);
+    color: var(--dark-body);
+}
+
+
+.light {
+    border: 1px solid var(--dark-body);
+    background-color: var(--light-body);
+    color: var(--dark-body);
+}
 

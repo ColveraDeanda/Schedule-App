@@ -11,6 +11,7 @@ export class CalendarComponent implements OnInit {
   property: string = ''
   theme: Theme = 'light';
   themeTittle: string = 'Dark';
+  display: boolean = false;
 
   constructor(
     @Inject(DOCUMENT) private documet: Document,
@@ -24,10 +25,14 @@ export class CalendarComponent implements OnInit {
   initializeTheme = (): void =>
     this.renderer.addClass(this.documet.body, this.theme); // adding class to body.
 
-    swithTheme() {
-      this.documet.body.classList.replace(this.theme, this.theme === 'light' ? (this.theme = 'dark') : (this.theme = 'light') )
-      this.theme === 'light' ? this.themeTittle = 'Dark' : this.themeTittle = 'Light';      
-    }
+  swithTheme() {
+    this.documet.body.classList.replace(this.theme, this.theme === 'light' ? (this.theme = 'dark') : (this.theme = 'light'))
+    this.theme === 'light' ? this.themeTittle = 'Dark' : this.themeTittle = 'Light';
+  }
+
+  showDialog() {
+    this.display = true;
+  }
 
 
 }

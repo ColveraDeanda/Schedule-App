@@ -1,6 +1,26 @@
 <!-- <button (click)="swithTheme()">
     {{ theme === 'light' ? "swith to dark" : "swith to light" }}
-</button> -->
+</button> 
+
+<button pButton type="button" [ngClass]="{'light': theme == 'light', 'dark': theme == 'dark'}" label="Click" ></button>
+<p-button label="Click" ></p-button>
+
+-->
+
+<button type="button" (click)="showDialog()" icon="pi pi-info-circle" label="Show">Show</button>
+
+<p-dialog position="top" [(visible)]="display" [transitionOptions]="'250ms'" [breakpoints]="{'1400px': '40vw', '960px': '50vw', '720px': '70vw', '480px': '100vw', '370px': '100vw' }" [style]="{width: '30vw'}">
+    <ng-template pTemplate="header">
+        Header content here
+        <button pButton type="button" [ngClass]="{'light': theme == 'light', 'dark': theme == 'dark'}" label="Click" ></button>
+    </ng-template>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa illo placeat neque itaque rerum dolore similique quo laborum, laudantium velit praesentium? Magnam architecto dicta officia dolores esse in eos ea!  
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa illo placeat neque itaque rerum dolore similique quo laborum, laudantium velit praesentium? Magnam architecto dicta officia dolores esse in eos ea!  
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa illo placeat neque itaque rerum dolore similique quo laborum, laudantium velit praesentium? Magnam architecto dicta officia dolores esse in eos ea!   
+    <ng-template pTemplate="footer">
+        <p-button (click)="display=false" label="Cerrar" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
 
 <div class="calendar">
     <div class="calendar-header">
