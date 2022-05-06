@@ -15,14 +15,16 @@ export class CalendarComponent implements OnInit {
 
   // Dates
   day: number;
-  month: string = 'August';
-  year: number = 2022;
+  month: string;
+  year: number;
 
   constructor(
     @Inject(DOCUMENT) private documet: Document,
     private renderer: Renderer2
   ) {
     this.day = 0;
+    this.month = 'February';
+    this.year = 2022
   }
 
   ngOnInit(): void {
@@ -48,6 +50,10 @@ export class CalendarComponent implements OnInit {
 
   moreYears() {
     this.year = this.year + 1;
+  }
+
+  isleapyear() {
+    return (this.year % 4 === 0 && this.year % 100 !== 0 && this.year % 400 !== 0) || (this.year % 100 === 0 && this.year % 400 === 0)
   }
 
 

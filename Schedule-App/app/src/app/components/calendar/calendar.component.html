@@ -240,7 +240,7 @@
                 <span></span>
                 <span></span>
             </div>
-            <div *ngIf="month != 'February'" class="calendar-day-hover">
+            <div *ngIf="month != 'February' || month == 'February' && isleapyear()" class="calendar-day-hover">
                 29
                 <span></span>
                 <span></span>
