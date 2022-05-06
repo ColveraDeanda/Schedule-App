@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-calendar',
@@ -9,8 +10,8 @@ import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
 export class CalendarComponent implements OnInit {
 
   property: string = ''
-  theme: Theme = 'light';
-  themeTittle: string = 'Dark';
+  theme: Theme;
+  themeTittle: string;
   display: boolean = false;
 
   // Dates
@@ -19,9 +20,14 @@ export class CalendarComponent implements OnInit {
   year: number;
 
   constructor(
+    private router: Router,
+
     @Inject(DOCUMENT) private documet: Document,
     private renderer: Renderer2
   ) {
+    this.theme = 'light';
+    this.themeTittle = 'Dark'
+
     this.day = 0;
     this.month = 'February';
     this.year = 2022
@@ -31,8 +37,17 @@ export class CalendarComponent implements OnInit {
     this.initializeTheme()
   }
 
-  initializeTheme = (): void =>
+  initializeTheme  = (): void => {
+    let currentTheme = this.documet.body.getAttribute('class');
+    if(currentTheme == 'dark') {
+      this.theme = 'dark';
+      this.themeTittle = 'Light';
+    }
     this.renderer.addClass(this.documet.body, this.theme); // adding class to body.
+  }
+    
+    
+    
 
   swithTheme() {
     this.documet.body.classList.replace(this.theme, this.theme === 'light' ? (this.theme = 'dark') : (this.theme = 'light'))
@@ -56,6 +71,9 @@ export class CalendarComponent implements OnInit {
     return (this.year % 4 === 0 && this.year % 100 !== 0 && this.year % 400 !== 0) || (this.year % 100 === 0 && this.year % 400 === 0)
   }
 
+  toMonthComponent() {
+    this.router.navigate(['month']);
+  }
 
 }
 

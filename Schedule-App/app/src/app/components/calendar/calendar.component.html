@@ -22,7 +22,7 @@
 
 <div class="calendar">
     <div class="calendar-header">
-        <span class="month-picker" id="month-picker">{{month}}</span>
+        <span (click)="toMonthComponent()" class="month-picker" id="month-picker">{{month}}</span>
         <div class="year-picker">
             <span (click)="lessYears()" class="year-change" id="prev-year">
                 <i class="fas fa-angle-left prev"></i>
@@ -273,6 +273,7 @@
         </div>
     </div>
 
+    <!-- Month -->
     <div class="month-list">
         <!-- show -->
         <div data-month="0">January</div>
