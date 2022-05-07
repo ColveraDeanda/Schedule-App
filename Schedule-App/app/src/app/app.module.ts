@@ -16,6 +16,7 @@ import {ToolbarModule} from 'primeng/toolbar';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { MonthComponent } from './components/month/month.component';
 import { DataService } from './services/data.service';
+import { TaskService } from './services/task.service';
 
 
 @NgModule({
@@ -37,7 +38,7 @@ import { DataService } from './services/data.service';
     ToolbarModule,
     BrowserAnimationsModule
   ],
-  providers: [DataService],
+  providers: [DataService, TaskService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
