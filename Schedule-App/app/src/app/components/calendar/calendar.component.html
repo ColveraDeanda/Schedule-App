@@ -10,13 +10,39 @@
 <p-dialog position="top" [(visible)]="display" [transitionOptions]="'350ms'" [breakpoints]="{'1400px': '50vw', '970px': '50vw', '1050px': '60vw',  '870px': '70vw', '750px': '80vw', '660px': '100vw', '520px': '100vw',  '480px': '100vw', '370px': '100vw' }" [style]="{width: '40vw'}">
     <ng-template pTemplate="header">
         {{ month + ' ' + day + ', ' + year }}
-        <button pButton type="button" style="margin-left: 40%;" [ngClass]="{'light': theme == 'light', 'dark': theme == 'dark'}" label="Create new" ></button>
+        <button (click)="showCreateTask()" pButton type="button" style="margin-left: 40%;" [ngClass]="{'light': theme == 'light', 'dark': theme == 'dark'}" label="Create new" ></button>
     </ng-template>
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa illo placeat neque itaque rerum dolore similique quo laborum, laudantium velit praesentium? Magnam architecto dicta officia dolores esse in eos ea!  
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa illo placeat neque itaque rerum dolore similique quo laborum, laudantium velit praesentium? Magnam architecto dicta officia dolores esse in eos ea!  
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa illo placeat neque itaque rerum dolore similique quo laborum, laudantium velit praesentium? Magnam architecto dicta officia dolores esse in eos ea!   
     <ng-template pTemplate="footer">
-        <p-button (click)="display=false" label="Cerrar" styleClass="p-button-text"></p-button>
+        <p-button (click)="display=false" label="Cerrar" styleClass="p-button-danger"></p-button>
+    </ng-template>
+</p-dialog>
+
+<!-- Form Create new task -->
+<p-dialog position="top" [(visible)]="displayCreateTask" [transitionOptions]="'350ms'" [breakpoints]="{'1400px': '40vw', '970px': '40vw', '1050px': '50vw',  '870px': '60vw', '750px': '70vw', '660px': '80vw', '520px': '90vw',  '480px': '100vw', '370px': '100vw' }" [style]="{width: '30vw'}">
+    <ng-template position="center" pTemplate="header">
+        <strong [style]="{marginLeft: '36%'}">Create new task</strong>  
+    </ng-template>
+    <form>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    <ng-template pTemplate="footer">
+        <p-button (click)="displayCreateTask=false" label="Cerrar" styleClass="p-button-danger"></p-button>
     </ng-template>
 </p-dialog>
 

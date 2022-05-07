@@ -15,6 +15,8 @@ export class CalendarComponent implements OnInit {
   theme: Theme;
   themeTittle: string;
   display: boolean = false;
+  displayCreateTask: boolean = false;
+  productDialog: boolean = false;
 
   // Dates
   day: number;
@@ -62,6 +64,10 @@ export class CalendarComponent implements OnInit {
     this.day = day;
   }
 
+  showCreateTask() {
+    this.displayCreateTask = true;
+  }
+
   lessYears() {
     this.year = this.year - 1;
     this.dataService.year = this.year;
@@ -79,6 +85,10 @@ export class CalendarComponent implements OnInit {
   toMonthComponent() {
     this.router.navigate(['month']);
   }
+
+  openNew() {
+    this.productDialog = true;
+}
 
 }
 
