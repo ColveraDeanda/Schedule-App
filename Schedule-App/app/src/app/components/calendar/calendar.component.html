@@ -7,43 +7,78 @@
 
 -->
 
-<p-dialog position="top" [(visible)]="display" [transitionOptions]="'350ms'" [breakpoints]="{'1400px': '50vw', '970px': '50vw', '1050px': '60vw',  '870px': '70vw', '750px': '80vw', '660px': '100vw', '520px': '100vw',  '480px': '100vw', '370px': '100vw' }" [style]="{width: '40vw'}">
+<p-dialog position="top" [(visible)]="display" [transitionOptions]="'350ms'"
+    [breakpoints]="{'1400px': '50vw', '970px': '50vw', '1050px': '60vw',  '870px': '70vw', '750px': '80vw', '660px': '100vw', '520px': '100vw',  '480px': '100vw', '370px': '100vw' }"
+    [style]="{width: '40vw'}">
     <ng-template pTemplate="header">
         {{ month + ' ' + day + ', ' + year }}
-        <button (click)="showCreateTask()" pButton type="button" style="margin-left: 40%;" [ngClass]="{'light': theme == 'light', 'dark': theme == 'dark'}" label="Create new" ></button>
+        <button (click)="showCreateTask()" pButton type="button" style="margin-left: 40%;"
+            [ngClass]="{'light': theme == 'light', 'dark': theme == 'dark'}" label="Create new"></button>
     </ng-template>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa illo placeat neque itaque rerum dolore similique quo laborum, laudantium velit praesentium? Magnam architecto dicta officia dolores esse in eos ea!  
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa illo placeat neque itaque rerum dolore similique quo laborum, laudantium velit praesentium? Magnam architecto dicta officia dolores esse in eos ea!  
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa illo placeat neque itaque rerum dolore similique quo laborum, laudantium velit praesentium? Magnam architecto dicta officia dolores esse in eos ea!   
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa illo placeat neque itaque rerum dolore similique quo
+    laborum, laudantium velit praesentium? Magnam architecto dicta officia dolores esse in eos ea!
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa illo placeat neque itaque rerum dolore similique quo
+    laborum, laudantium velit praesentium? Magnam architecto dicta officia dolores esse in eos ea!
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa illo placeat neque itaque rerum dolore similique quo
+    laborum, laudantium velit praesentium? Magnam architecto dicta officia dolores esse in eos ea!
     <ng-template pTemplate="footer">
         <p-button (click)="display=false" label="Cerrar" styleClass="p-button-danger"></p-button>
     </ng-template>
 </p-dialog>
 
 <!-- Form Create new task -->
-<p-dialog position="top" [(visible)]="displayCreateTask" [transitionOptions]="'350ms'" [breakpoints]="{'1400px': '40vw', '970px': '40vw', '1050px': '50vw',  '870px': '60vw', '750px': '70vw', '660px': '80vw', '520px': '90vw',  '480px': '100vw', '370px': '100vw' }" [style]="{width: '30vw'}">
-    <ng-template position="center" pTemplate="header">
-        <strong [style]="{marginLeft: '36%'}">Create new task</strong>  
+<p-dialog position="top" [(visible)]="displayCreateTask" [transitionOptions]="'350ms'"
+    [breakpoints]="{'1400px': '40vw', '970px': '40vw', '1050px': '50vw',  '870px': '60vw', '750px': '70vw', '660px': '80vw', '520px': '90vw',  '480px': '100vw', '370px': '100vw' }"
+    [style]="{width: '30vw'}">
+    <ng-template pTemplate="header">
+        <strong style="font-size: 25px">Create new task</strong>
     </ng-template>
-    <form>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    
+    <!-- Modal body -->
+    <form #taskForm="ngForm" (ngSubmit)="saveTask(taskForm)">
+        <!-- Title -->
+        <div class="form-group has-danger has-success">
+            <label for="title"> <strong>Title</strong></label>
+            <input type="text" name="title" id="title" #title="ngModel" [(ngModel)]="task.title"
+                autocomplete="off" class="form-control" [ngClass]="{
+                'is-invalid': title.touched && !title.valid,
+                'is-valid': title.touched && title.valid}" required pattern="^([a-zA-Z _]|[à-ú]|[À-Ú])+$">
+            <div *ngIf="title.touched && !title.valid">
+                <span [ngStyle]="{'color': 'red'}">Title is incorrect</span>
+            </div>
         </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        <!-- Description -->
+        <div class="form-group has-danger has-success">
+            <label for="description"> <strong>Description</strong></label>
+            <textarea name="description" id="description" rows="3" #description="ngModel"
+                [(ngModel)]="task.description" autocomplete="off" class="form-control" 
+                [ngClass]="{'is-invalid': description.touched && !description.valid,
+                            'is-valid': description.touched && description.valid}" required pattern="^([0-9a-zA-Z _]|[à-ú]|[À-Ú])+$"
+            ></textarea>
+            <div *ngIf="description.touched && !description.valid">
+                <span [ngStyle]="{'color': 'red'}">Description is incorrect</span>
+            </div>
         </div>
-        <div class="form-group form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        <!-- Category -->
+        <div class="form-group has-danger has-success">
+            <label for="category"> <strong>Category</strong></label>
+            <select class="form-control" [ngClass]="{
+                    'is-invalid': category.touched && !category.valid,
+                    'is-valid': category.touched && category.valid}" id="category" name="category"
+                #category="ngModel" [(ngModel)]="task.category" required>
+                <option *ngFor="let category of categories" [value]="category.name">
+                    {{category.name}}
+                </option>
+            </select>
+            <div *ngIf="category.touched && !category.valid">
+                <span [ngStyle]="{'color': 'red'}">Category is incorrect</span>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    <ng-template pTemplate="footer">
-        <p-button (click)="displayCreateTask=false" label="Cerrar" styleClass="p-button-danger"></p-button>
-    </ng-template>
+
+        <div class="row" style="margin-left: 71%;">
+        <input style="margin-left: 10px" type="submit" value="Guardar" class="btn btn-primary" [disabled]="!taskForm.form.valid">
+        </div>
+    </form>
 </p-dialog>
 
 <div class="calendar">
@@ -266,7 +301,8 @@
                 <span></span>
                 <span></span>
             </div>
-            <div  *ngIf="month != 'February' || month == 'February' && isleapyear()" (click)="showDialog(29)" class="calendar-day-hover">
+            <div *ngIf="month != 'February' || month == 'February' && isleapyear()" (click)="showDialog(29)"
+                class="calendar-day-hover">
                 29
                 <span></span>
                 <span></span>
@@ -280,7 +316,8 @@
                 <span></span>
                 <span></span>
             </div>
-            <div *ngIf="month == 'January' || month == 'March' || month == 'May' || month == 'July' || month == 'August' || month == 'October' || month == 'December'" (click)="showDialog(31)" class="calendar-day-hover">
+            <div *ngIf="month == 'January' || month == 'March' || month == 'May' || month == 'July' || month == 'August' || month == 'October' || month == 'December'"
+                (click)="showDialog(31)" class="calendar-day-hover">
                 31
                 <span></span>
                 <span></span>
@@ -316,4 +353,3 @@
         <div data-month="12">December</div>
     </div>
 </div>
-

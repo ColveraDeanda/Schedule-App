@@ -1,7 +1,9 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
+import { Form } from '@angular/forms';
 import { Router } from '@angular/router'
 import { DataService } from 'src/app/services/data.service';
+import { Task } from '../../models/task.model'
 
 @Component({
   selector: 'app-calendar',
@@ -17,6 +19,8 @@ export class CalendarComponent implements OnInit {
   display: boolean = false;
   displayCreateTask: boolean = false;
   productDialog: boolean = false;
+  categories: Array<any> = [];
+  task: Task;
 
   // Dates
   day: number;
@@ -36,10 +40,19 @@ export class CalendarComponent implements OnInit {
     this.day = 0;
     this.month = dataService.month;
     this.year = dataService.year;
+
+    this.task = new Task('', '', '', '', this.day, this.month, this.year);
   }
 
   ngOnInit(): void {
     this.initializeTheme()
+
+    this.categories = [
+      {id: "NOT", name: "Note"},
+      {id: "CMP", name: "Birthday"},
+      {id: "TAR", name: "Task"},
+      {id: "PRO", name: "Project"}
+    ]
   }
 
   initializeTheme  = (): void => {
@@ -49,6 +62,20 @@ export class CalendarComponent implements OnInit {
       this.themeTittle = 'Light';
     }
     this.renderer.addClass(this.documet.body, this.theme); // adding class to body.
+  }
+
+  saveTask(form: any) {
+    this.task.day = this.day;
+    this.task.year = this.year;
+    console.log(this.task);
+    
+
+
+    setTimeout(() => {
+      form.reset()
+    }, 3000)
+    
+    
   }
     
     
