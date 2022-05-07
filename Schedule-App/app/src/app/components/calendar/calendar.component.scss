@@ -21,3 +21,9 @@
     color: var(--dark-body);
 }
 
+.light:hover {
+    background-color: var(--dark-body);
+    border: 1px solid var(--light-body);
+    color: var(--light-body);
+}
+
