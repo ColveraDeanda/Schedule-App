@@ -7,6 +7,48 @@
 
 -->
 
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path
+            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+    </symbol>
+    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path
+            d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+    </symbol>
+    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path
+            d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+    </symbol>
+</svg>
+
+<!-- Error Alert -->
+<div *ngIf="message['error']" class="alert alert-danger d-flex align-items-center" role="alert">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+        <use xlink:href="#exclamation-triangle-fill" />
+    </svg>
+    <div>
+        <strong style="margin-left: 9px">
+            {{ taskRepeated }}
+        </strong>
+        <strong *ngFor="let error of errors"> 
+            {{ error }}
+        </strong>
+    </div>
+</div>
+
+<!-- Success Alert -->
+<div *ngIf="message['success']" style="margin-right: 36%; margin-left: 34%;"
+    class="alert alert-success d-flex align-items-center" role="alert">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+        <use xlink:href="#check-circle-fill" />
+    </svg>
+    <div>
+        <strong style="margin-left: 9px">Saved sucessfully</strong>
+    </div>
+</div>
+
+
 <p-dialog position="top" [(visible)]="display" [transitionOptions]="'350ms'"
     [breakpoints]="{'1400px': '50vw', '970px': '50vw', '1050px': '60vw',  '870px': '70vw', '750px': '80vw', '660px': '100vw', '520px': '100vw',  '480px': '100vw', '370px': '100vw' }"
     [style]="{width: '40vw'}">
@@ -31,16 +73,16 @@
     [breakpoints]="{'1400px': '40vw', '970px': '40vw', '1050px': '50vw',  '870px': '60vw', '750px': '70vw', '660px': '80vw', '520px': '90vw',  '480px': '100vw', '370px': '100vw' }"
     [style]="{width: '30vw'}">
     <ng-template pTemplate="header">
-        <strong style="font-size: 25px">Create new task</strong>
+        <strong style="font-size: 22px">Create new task</strong>
     </ng-template>
-    
+
     <!-- Modal body -->
     <form #taskForm="ngForm" (ngSubmit)="saveTask(taskForm)">
         <!-- Title -->
         <div class="form-group has-danger has-success">
             <label for="title"> <strong>Title</strong></label>
-            <input type="text" name="title" id="title" #title="ngModel" [(ngModel)]="task.title"
-                autocomplete="off" class="form-control" [ngClass]="{
+            <input type="text" name="title" id="title" #title="ngModel" [(ngModel)]="task.title" autocomplete="off"
+                class="form-control" [ngClass]="{
                 'is-invalid': title.touched && !title.valid,
                 'is-valid': title.touched && title.valid}" required pattern="^([a-zA-Z _]|[à-ú]|[À-Ú])+$">
             <div *ngIf="title.touched && !title.valid">
@@ -50,11 +92,9 @@
         <!-- Description -->
         <div class="form-group has-danger has-success">
             <label for="description"> <strong>Description</strong></label>
-            <textarea name="description" id="description" rows="3" #description="ngModel"
-                [(ngModel)]="task.description" autocomplete="off" class="form-control" 
-                [ngClass]="{'is-invalid': description.touched && !description.valid,
-                            'is-valid': description.touched && description.valid}" required pattern="^([0-9a-zA-Z _]|[à-ú]|[À-Ú])+$"
-            ></textarea>
+            <textarea name="description" id="description" rows="3" #description="ngModel" [(ngModel)]="task.description"
+                autocomplete="off" class="form-control" [ngClass]="{'is-invalid': description.touched && !description.valid,
+                            'is-valid': description.touched && description.valid}" required pattern="^([0-9a-zA-Z _]|[à-ú]|[À-Ú])+$"></textarea>
             <div *ngIf="description.touched && !description.valid">
                 <span [ngStyle]="{'color': 'red'}">Description is incorrect</span>
             </div>
@@ -64,8 +104,8 @@
             <label for="category"> <strong>Category</strong></label>
             <select class="form-control" [ngClass]="{
                     'is-invalid': category.touched && !category.valid,
-                    'is-valid': category.touched && category.valid}" id="category" name="category"
-                #category="ngModel" [(ngModel)]="task.category" required>
+                    'is-valid': category.touched && category.valid}" id="category" name="category" #category="ngModel"
+                [(ngModel)]="task.category" required>
                 <option *ngFor="let category of categories" [value]="category.name">
                     {{category.name}}
                 </option>
@@ -76,7 +116,8 @@
         </div>
 
         <div class="row" style="margin-left: 71%;">
-        <input style="margin-left: 10px" type="submit" value="Guardar" class="btn btn-primary" [disabled]="!taskForm.form.valid">
+            <input style="margin-left: 10px" type="submit" value="Guardar" class="btn btn-primary"
+                [disabled]="!taskForm.form.valid">
         </div>
     </form>
 </p-dialog>

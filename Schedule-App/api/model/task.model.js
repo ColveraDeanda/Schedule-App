@@ -6,7 +6,8 @@ var TaskSchema = Schema({
     description: String,
     category: String,
     day: Number,
-    month: String
+    month: String,
+    year: Number
 });
 
 module.exports = mongoose.model('Task', TaskSchema);

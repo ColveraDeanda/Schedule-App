@@ -12,6 +12,7 @@ taskController.saveTask = (req, res) => {
     task.category = req.body.category;
     task.day = req.body.day;
     task.month = req.body.month;
+    task.year = req.body.year;
 
     if (task.title == null || !isNaN(task.title)) {
         valid.push(' the title is incorrect');
@@ -28,6 +29,9 @@ taskController.saveTask = (req, res) => {
     if (task.month == null || !isNaN(task.month)) {
         valid.push(' the month is incorrect');
     }
+    if (task.year == null || isNaN(task.year)) {
+        valid.push(' the year is incorrect');
+    }
 
     // Setting Data
     task.title = task.title.toLowerCase();
@@ -41,7 +45,7 @@ taskController.saveTask = (req, res) => {
     task.month = task.month.slice(0, 1).toUpperCase() + task.month.slice(1);
 
     if (valid.length == 0) {
-        Task.find({ day: task.day, month: task.month }).exec((err, data) => {
+        Task.find({ day: task.day, month: task.month, year: task.year }).exec((err, data) => {
             data.map((x) => {
                 if (x.title === task.title) return error = true;
             });
