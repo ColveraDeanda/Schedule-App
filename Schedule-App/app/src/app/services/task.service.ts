@@ -51,4 +51,9 @@ export class TaskService {
    return this._http.get(this.url + "tasks/" + month, {headers: headers});
   }
 
+  getTasksByDayMonthAndYear(day: number, month: string, year: number): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.get(this.url + "tasks/" + day + "/" + month + "/" + year, {headers: headers});
+   }
+
 }

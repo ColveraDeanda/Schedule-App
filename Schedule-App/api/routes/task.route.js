@@ -9,5 +9,6 @@ router.delete('/task/:id' ,taskController.deleteTask);
 router.put('/task/:id', taskController.updateTask);
 router.get('/task/:day/:month' ,taskController.getByDayAndMonth);
 router.get('/tasks/:month', taskController.getCategoriesByMonth);
+router.get('/tasks/:day/:month/:year', taskController.getTasksByDayMonthAndYear);
 
 module.exports = router;

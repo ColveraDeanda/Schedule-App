@@ -27,6 +27,7 @@ export class CalendarComponent implements OnInit {
   }
   taskRepeated: string = '';
   errors: Array<String> = [];
+  tasks: Array<any> = []
 
   // Dates
   day: number;
@@ -76,6 +77,7 @@ export class CalendarComponent implements OnInit {
     this.task.year = this.year;
     this.taskService.saveTask(this.task).subscribe({
       next: (value) =>  {
+        this.getTasks(this.day);
         console.log(value);
         this.message.success = true;
         this.displayCreateTask = false;
@@ -105,6 +107,18 @@ export class CalendarComponent implements OnInit {
       } 
   })
   }
+
+  getTasks(day: number) {
+    this.taskService.getTasksByDayMonthAndYear(day, this.month, this.year).subscribe({
+      next: (res) => {
+        this.tasks = res.data;
+        console.log((this.tasks));
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
     
   swithTheme() {
     this.documet.body.classList.replace(this.theme, this.theme === 'light' ? (this.theme = 'dark') : (this.theme = 'light'))
@@ -114,6 +128,7 @@ export class CalendarComponent implements OnInit {
   showDialog(day: number) {
     this.display = true;
     this.day = day;
+    this.getTasks(day);
   }
 
   showCreateTask() {

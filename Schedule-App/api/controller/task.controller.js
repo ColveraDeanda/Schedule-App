@@ -206,4 +206,22 @@ taskController.getCategoriesByMonth = (req, res) => {
     });
 }
 
+
+taskController.getTasksByDayMonthAndYear = (req, res) => {
+    let day = req.params.day;
+    let month = req.params.month;
+    let year = req.params.year;
+    Task.find({ day: day, month: month, year: year }).exec((err, data) => {
+        if (err) return res.status(500).send({ message: 'An error has occurred' });
+        if (!data) return res.status(404).send({ message: 'Error in obtaining the data' });
+        if (data.length == 0) {
+            res.status(200).send({ message: "No records saved yet..." });
+        } else {
+            res.status(200).send({
+                data
+            });
+        }
+    });
+}
+
 module.exports = taskController;

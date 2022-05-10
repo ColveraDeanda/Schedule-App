@@ -31,7 +31,7 @@
         <strong style="margin-left: 9px">
             {{ taskRepeated }}
         </strong>
-        <strong *ngFor="let error of errors"> 
+        <strong *ngFor="let error of errors">
             {{ error }}
         </strong>
     </div>
@@ -53,16 +53,47 @@
     [breakpoints]="{'1400px': '50vw', '970px': '50vw', '1050px': '60vw',  '870px': '70vw', '750px': '80vw', '660px': '100vw', '520px': '100vw',  '480px': '100vw', '370px': '100vw' }"
     [style]="{width: '40vw'}">
     <ng-template pTemplate="header">
-        {{ month + ' ' + day + ', ' + year }}
+        <span style="font-weight: bold; font-size: 22px">{{ month + ' ' + day + ', ' + year }} </span> 
         <button (click)="showCreateTask()" pButton type="button" style="margin-left: 40%;"
             [ngClass]="{'light': theme == 'light', 'dark': theme == 'dark'}" label="Create new"></button>
     </ng-template>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa illo placeat neque itaque rerum dolore similique quo
-    laborum, laudantium velit praesentium? Magnam architecto dicta officia dolores esse in eos ea!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa illo placeat neque itaque rerum dolore similique quo
-    laborum, laudantium velit praesentium? Magnam architecto dicta officia dolores esse in eos ea!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa illo placeat neque itaque rerum dolore similique quo
-    laborum, laudantium velit praesentium? Magnam architecto dicta officia dolores esse in eos ea!
+
+    <!-- Card's task -->
+    <div class="card" *ngFor="let task of tasks" style="margin-top: 15px;">
+        <div class="card-header" [ngStyle]="{'background-color': '#4f8a8b', 'color': 'white'}">
+
+            <div [ngStyle]="{'font-weight': 'bold'}">{{task.title}}
+                <button style="margin-right: 10px" class="text-center" type="button" class="btn btn-primary">
+                    <svg data-dismiss="modal" aria-label="Close" width="18px" height="18px" viewBox="0 0 16 16"
+                        class="bi bi-pencil-square edit-modal" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                        <path fill-rule="evenodd"
+                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                    </svg>
+                </button>
+                <button type="button" class="btn btn-danger">
+                    <svg width="18px" height="18px" viewBox="0 0 16 16"
+                        class="bi bi-trash delete-model" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                        <path fill-rule="evenodd"
+                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                    </svg>
+                </button>
+
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="category">
+                <span> <strong>Category: </strong>  </span> {{task.category}}
+            </div>
+            <div class="category">
+                <span> <strong>Description:</strong></span> {{task.description}}
+            </div>
+        </div>
+    </div>
+
     <ng-template pTemplate="footer">
         <p-button (click)="display=false" label="Cerrar" styleClass="p-button-danger"></p-button>
     </ng-template>
@@ -94,7 +125,8 @@
             <label for="description"> <strong>Description</strong></label>
             <textarea name="description" id="description" rows="3" #description="ngModel" [(ngModel)]="task.description"
                 autocomplete="off" class="form-control" [ngClass]="{'is-invalid': description.touched && !description.valid,
-                            'is-valid': description.touched && description.valid}" required pattern="^([0-9a-zA-Z _]|[à-ú]|[À-Ú])+$"></textarea>
+                            'is-valid': description.touched && description.valid}" required
+                pattern="^([0-9a-zA-Z _]|[à-ú]|[À-Ú])+$"></textarea>
             <div *ngIf="description.touched && !description.valid">
                 <span [ngStyle]="{'color': 'red'}">Description is incorrect</span>
             </div>
