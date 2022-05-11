@@ -77,7 +77,10 @@ export class CalendarComponent implements OnInit {
   saveTask(form: any) {
     if (this.isUpdating) {
       let currentId = this.id;
-      this.updateTask(currentId);
+      let currentDay = this.day;
+      console.log('current Day: ', currentDay);
+      
+      this.updateTask(currentId, currentDay);
       this.isUpdating = false;
       console.log('aquiiii');
       
@@ -148,15 +151,16 @@ export class CalendarComponent implements OnInit {
     });
   }
 
-  updateTask(id: string) {
+  updateTask(id: string, day: number) {
     this.getTask(id);
-    console.log(this.task);
+    console.log(this.task, 'objetooo');
     this.task._id = id;
+    this.task.day = day;
     this.taskService.updateTask(id, this.task).subscribe({
       next: (res) => {
         console.log(res);
         this.displayCreateTask = false;
-        this.getTasks(this.day)
+        this.getTasks(day);
       },
       error: (err) => {
         console.log(err);
