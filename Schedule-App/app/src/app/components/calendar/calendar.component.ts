@@ -27,7 +27,9 @@ export class CalendarComponent implements OnInit {
   }
   taskRepeated: string = '';
   errors: Array<String> = [];
-  tasks: Array<any> = []
+  tasks: Array<any> = [];
+  isUpdating: boolean = false;
+  id: string = '';
 
   // Dates
   day: number;
@@ -36,7 +38,7 @@ export class CalendarComponent implements OnInit {
 
   constructor(
     private taskService: TaskService,
-    private dataService: DataService, 
+    private dataService: DataService,
     private router: Router,
 
     @Inject(DOCUMENT) private documet: Document,
@@ -56,56 +58,71 @@ export class CalendarComponent implements OnInit {
     this.initializeTheme()
 
     this.categories = [
-      {id: "NOT", name: "Note"},
-      {id: "CMP", name: "Birthday"},
-      {id: "TAR", name: "Task"},
-      {id: "PRO", name: "Project"}
+      { id: "NOT", name: "Note" },
+      { id: "CMP", name: "Birthday" },
+      { id: "TAR", name: "Task" },
+      { id: "PRO", name: "Project" }
     ]
   }
 
-  initializeTheme  = (): void => {
+  initializeTheme = (): void => {
     let currentTheme = this.documet.body.getAttribute('class');
-    if(currentTheme == 'dark') {
+    if (currentTheme == 'dark') {
       this.theme = 'dark';
       this.themeTittle = 'Light';
     }
     this.renderer.addClass(this.documet.body, this.theme); // adding class to body.
   }
 
-  saveTask (form: any) {
-    this.task.day = this.day;
-    this.task.year = this.year;
-    this.taskService.saveTask(this.task).subscribe({
-      next: (value) =>  {
-        this.getTasks(this.day);
-        console.log(value);
-        this.message.success = true;
-        this.displayCreateTask = false;
-        setTimeout(() => {
-          this.message.success = false;
-        }, 10000);
-        form.reset();
-      },
-      error: (e) => {
-        if(e.error.repeated) {
-          this.taskRepeated = `The tittle ${this.task.title} on ${this.month} ${this.day} already exists` ;
-          console.error(e.error.repeated)
-        } else {
-          this.errors.push(e.error.errors);
-          console.log(e.error.errors);
+  saveTask(form: any) {
+    if (this.isUpdating) {
+      let currentId = this.id;
+      this.updateTask(currentId);
+      this.isUpdating = false;
+      console.log('aquiiii');
+      
+    } else {
+      this.task.day = this.day;
+      this.task.year = this.year;
+      this.taskService.saveTask(this.task).subscribe({
+        next: (value) => {
+          this.getTasks(this.day);
+          console.log(value);
+          this.message.success = true;
+          this.displayCreateTask = false;
+          setTimeout(() => {
+            this.message.success = false;
+          }, 10000);
+          form.reset();
+        },
+        error: (e) => {
+          if (e.error.repeated) {
+            this.taskRepeated = `The tittle ${this.task.title} on ${this.month} ${this.day} already exists`;
+            console.error(e.error.repeated)
+          } else {
+            this.errors.push(e.error.errors);
+            console.log(e.error.errors);
+          }
+
+          this.message.error = true;
+          this.displayCreateTask = false;
+          this.display = false;
+
+          setTimeout(() => {
+            this.message.error = false;
+          }, 15000)
+
+          form.reset();
         }
-        
-        this.message.error = true;
-        this.displayCreateTask = false;
-        this.display = false;
+      })
+    }
+  }
 
-        setTimeout(() => {
-          this.message.error = false;
-        }, 15000)
-
-        form.reset();
-      } 
-  })
+  setUpdateTask(id: string) {
+    this.isUpdating = true;
+    this.displayCreateTask = true;
+    this.id = id;
+    this.getTask(id)
   }
 
   getTasks(day: number) {
@@ -119,7 +136,49 @@ export class CalendarComponent implements OnInit {
       }
     })
   }
-    
+
+  deleteTask(id: string) {
+    this.taskService.deleteTask(id).subscribe({
+      next: (res) => {
+        this.getTasks(this.day);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
+
+  updateTask(id: string) {
+    this.getTask(id);
+    console.log(this.task);
+    this.task._id = id;
+    this.taskService.updateTask(id, this.task).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.displayCreateTask = false;
+        this.getTasks(this.day)
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+
+  getTask(id: string) {
+    this.taskService.getTask(id).subscribe({
+      next: (res) => {
+        const { category, description, title } = res.task;
+        this.task.category = category;
+        this.task.description = description;
+        this.task.title = title;
+      },
+      error: (err) => {
+        console.log(err);
+
+      }
+    })
+  }
+
   swithTheme() {
     this.documet.body.classList.replace(this.theme, this.theme === 'light' ? (this.theme = 'dark') : (this.theme = 'light'))
     this.theme === 'light' ? this.themeTittle = 'Dark' : this.themeTittle = 'Light';
@@ -132,6 +191,9 @@ export class CalendarComponent implements OnInit {
   }
 
   showCreateTask() {
+    this.task.category = '';
+    this.task.title = '';
+    this.task.description = ''
     this.displayCreateTask = true;
   }
 
@@ -155,7 +217,7 @@ export class CalendarComponent implements OnInit {
 
   openNew() {
     this.productDialog = true;
-}
+  }
 
 }
 
