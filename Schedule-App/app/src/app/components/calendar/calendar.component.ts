@@ -78,24 +78,19 @@ export class CalendarComponent implements OnInit {
     if (this.isUpdating) {
       let currentId = this.id;
       let currentDay = this.day;
-      console.log('current Day: ', currentDay);
-      
       this.updateTask(currentId, currentDay);
       this.isUpdating = false;
-      console.log('aquiiii');
-      
     } else {
       this.task.day = this.day;
       this.task.year = this.year;
       this.taskService.saveTask(this.task).subscribe({
         next: (value) => {
           this.getTasks(this.day);
-          console.log(value);
           this.message.success = true;
           this.displayCreateTask = false;
           setTimeout(() => {
             this.message.success = false;
-          }, 10000);
+          }, 4000);
           form.reset();
         },
         error: (e) => {
@@ -104,7 +99,6 @@ export class CalendarComponent implements OnInit {
             console.error(e.error.repeated)
           } else {
             this.errors.push(e.error.errors);
-            console.log(e.error.errors);
           }
 
           this.message.error = true;
@@ -132,10 +126,8 @@ export class CalendarComponent implements OnInit {
     this.taskService.getTasksByDayMonthAndYear(day, this.month, this.year).subscribe({
       next: (res) => {
         this.tasks = res.data;
-        console.log((this.tasks));
       },
       error: (err) => {
-        console.log(err);
       }
     })
   }
@@ -146,24 +138,20 @@ export class CalendarComponent implements OnInit {
         this.getTasks(this.day);
       },
       error: (err) => {
-        console.log(err);
       }
     });
   }
 
   updateTask(id: string, day: number) {
     this.getTask(id);
-    console.log(this.task, 'objetooo');
     this.task._id = id;
     this.task.day = day;
     this.taskService.updateTask(id, this.task).subscribe({
       next: (res) => {
-        console.log(res);
         this.displayCreateTask = false;
         this.getTasks(day);
       },
       error: (err) => {
-        console.log(err);
       }
     })
   }
@@ -177,8 +165,6 @@ export class CalendarComponent implements OnInit {
         this.task.title = title;
       },
       error: (err) => {
-        console.log(err);
-
       }
     })
   }
